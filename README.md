@@ -20,16 +20,16 @@
 ### Backend Advanced
 
 #### Intro to Laravel
-#### RouƟnes
+#### Routines
 
 #### Controller
 
 #### Views
 
-#### AuthenƟcaƟon
+#### Authentication
 
 #### Send Emails
 
-#### RelaƟons / ORM
+#### Relations / ORM
 
 #### Publish Your Project
