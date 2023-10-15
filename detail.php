@@ -1,9 +1,40 @@
+<?php
+if(isset($_GET["id"])){
+    include_once("admin/includes/conn.php");
+    $id = $_GET["id"];
+    try{
+        $data = "SELECT * FROM `cars` WHERE id = ?";
+        $result = $conn->prepare($data);
+        $result->execute([$id]);
+        $state = $result->fetch();
+		$title = $state["Title"];
+		$image = $state["Image"];
+		$content = $state["Description"];
+		$model = $state["Model"];
+		$auto = $state["Auto"];
+		if($auto){
+			$autoStr = "selected";
+			$manualStr = "";
+		}else{
+			$autoStr = "";
+			$manualStr = "selected";
+		}
+		$properties = $state["Properties"];
+		$price = $state["Price"];
+
+    }catch(PDOException $e){
+        echo "Connection failed: " . $e->getMessage();
+        }
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>ROYAL CARS - Car Rental HTML Template</title>
+    <title><?php echo (isset($title))? $title: "Invalid"; ?></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -161,32 +192,26 @@
     </div>
     <!-- Page Header Start -->
 
+<?php
+if(isset($_GET["id"])){
+?>
 
     <!-- Detail Start -->
     <div class="container-fluid pt-5">
         <div class="container pt-5">
             <div class="row">
                 <div class="col-lg-8 mb-5">
-                    <h1 class="display-4 text-uppercase mb-5">Mercedes Benz R3</h1>
+                    <h1 class="display-4 text-uppercase mb-5"><?php echo $title ?></h1>
                     <div class="row mx-n2 mb-3">
-                        <div class="col-md-3 col-6 px-2 pb-2">
-                            <img class="img-fluid w-100" src="img/gallery-1.jpg" alt="">
-                        </div>
-                        <div class="col-md-3 col-6 px-2 pb-2">
-                            <img class="img-fluid w-100" src="img/gallery-2.jpg" alt="">
-                        </div>
-                        <div class="col-md-3 col-6 px-2 pb-2">
-                            <img class="img-fluid w-100" src="img/gallery-3.jpg" alt="">
-                        </div>
-                        <div class="col-md-3 col-6 px-2 pb-2">
-                            <img class="img-fluid w-100" src="img/gallery-4.jpg" alt="">
+                        <div class="col-md-12 col-12 px-2 pb-2">
+                            <img class="img-fluid w-100" src="img/<?php echo $image ?>" alt="<?php echo $title ?>">
                         </div>
                     </div>
-                    <p>Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt magna dolores aliquyam dolores dolore. Amet erat amet et magna</p>
+                    <p><?php echo $content ?></p>
                     <div class="row pt-2">
                         <div class="col-md-3 col-6 mb-2">
                             <i class="fa fa-car text-primary mr-2"></i>
-                            <span>Model: 2015</span>
+                            <span>Model: <?php echo $model ?></span>
                         </div>
                         <div class="col-md-3 col-6 mb-2">
                             <i class="fa fa-cogs text-primary mr-2"></i>
@@ -200,38 +225,7 @@
                             <i class="fa fa-eye text-primary mr-2"></i>
                             <span>GPS Navigation</span>
                         </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-car text-primary mr-2"></i>
-                            <span>Model: 2015</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-cogs text-primary mr-2"></i>
-                            <span>Automatic</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-road text-primary mr-2"></i>
-                            <span>20km/liter</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-eye text-primary mr-2"></i>
-                            <span>GPS Navigation</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-car text-primary mr-2"></i>
-                            <span>Model: 2015</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-cogs text-primary mr-2"></i>
-                            <span>Automatic</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-road text-primary mr-2"></i>
-                            <span>20km/liter</span>
-                        </div>
-                        <div class="col-md-3 col-6 mb-2">
-                            <i class="fa fa-eye text-primary mr-2"></i>
-                            <span>GPS Navigation</span>
-                        </div>
+
                     </div>
                </div>
 
@@ -284,7 +278,11 @@
     </div>
     <!-- Detail End -->
 
-
+<?php
+    }else{
+        echo "Invalid Request";
+    }
+    ?>
     <!-- Related Car Start -->
     <div class="container-fluid pb-5">
         <div class="container pb-5">

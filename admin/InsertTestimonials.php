@@ -1,3 +1,22 @@
+<?php
+	if($_SERVER["REQUEST_METHOD"] === "POST"){
+		include_once("includes/conn.php");
+		$Name = $_POST["name"];
+		$Position = $_POST["position"];
+		$Content = $_POST["content"];
+		include_once("includes/addimage.php");
+
+	try{
+		$data = "INSERT INTO `testimonials`(`Name`, `Position`, `Content`, `Image`) VALUES (?, ?, ?, ?)";
+		$result = $conn->prepare($data);
+		$result->execute([$Name, $Position, $Content, $image_name]);
+		echo "Inserted Successfully";
+
+	}catch(PDOException $e){
+	echo "Connection failed: " . $e->getMessage();
+	}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,15 +29,15 @@
 
 	<body>
 		<div class="container">
-			<form class="m-auto" style="max-width:600px" enctype="multipart/form-data">
+			<form method="POST" action="" class="m-auto" style="max-width:600px" enctype="multipart/form-data">
 				<h3 class="my-4">Edit / Update Testimonials</h3>
 				<hr class="my-4" />
 				<div class="form-group mb-3 row"><label for="title2" class="col-md-5 col-form-label">Name</label>
-					<div class="col-md-7"><input type="text" class="form-control form-control-lg" id="title2" name="tesName" required></div>
+					<div class="col-md-7"><input type="text" class="form-control form-control-lg" id="title2" name="name" required></div>
 				</div>
 				<hr class="bg-transparent border-0 py-1" />
 				<div class="form-group mb-3 row"><label for="price6" class="col-md-5 col-form-label">Position</label>
-					<div class="col-md-7"><input type="text" class="form-control form-control-lg" id="price6" name="poditio"></div>
+					<div class="col-md-7"><input type="text" class="form-control form-control-lg" id="price6" name="position"></div>
 				</div>
 				<hr class="bg-transparent border-0 py-1" />
 				<div class="form-group mb-3 row"><label for="content4" class="col-md-5 col-form-label">Content</label>
@@ -28,6 +47,7 @@
 				<div>
 					<label for="image" class="col-md-5 col-form-label">Select Image</label>
 					<input type="file" id="image" name="image" accept="image/*">
+					
 				</div>
 				<hr class="my-4" />
 				<div class="form-group mb-3 row"><label for="insert10" class="col-md-5 col-form-label"></label>
