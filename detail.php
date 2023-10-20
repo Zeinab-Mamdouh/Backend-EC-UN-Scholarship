@@ -13,11 +13,9 @@ if(isset($_GET["id"])){
 		$model = $state["Model"];
 		$auto = $state["Auto"];
 		if($auto){
-			$autoStr = "selected";
-			$manualStr = "";
+			$autoStr = "Auto";
 		}else{
-			$autoStr = "";
-			$manualStr = "selected";
+			$autoStr = "Manual";
 		}
 		$properties = $state["Properties"];
 		$price = $state["Price"];
@@ -59,79 +57,15 @@ if(isset($_GET["id"])){
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
-    <!-- Topbar Start -->
-    <div class="container-fluid bg-dark py-3 px-lg-5 d-none d-lg-block">
-        <div class="row">
-            <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
-                <div class="d-inline-flex align-items-center">
-                    <a class="text-body pr-3" href=""><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</a>
-                    <span class="text-body">|</span>
-                    <a class="text-body px-3" href=""><i class="fa fa-envelope mr-2"></i>info@example.com</a>
-                </div>
-            </div>
-            <div class="col-md-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-                    <a class="text-body px-3" href="">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="text-body px-3" href="">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a class="text-body px-3" href="">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a class="text-body px-3" href="">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a class="text-body pl-3" href="">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Topbar End -->
+<?php
+    
+    // Top Bar Section
+    include_once("includes/topBar.php");
 
-
-    <!-- Navbar Start -->
-    <div class="container-fluid position-relative nav-bar p-0">
-        <div class="position-relative px-lg-5" style="z-index: 9;">
-            <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
-                <a href="" class="navbar-brand">
-                    <h1 class="text-uppercase text-primary mb-1">Royal Cars</h1>
-                </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
-                    <div class="navbar-nav ml-auto py-0">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Service</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Cars</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="car.html" class="dropdown-item">Car Listing</a>
-                                <a href="detail.html" class="dropdown-item active">Car Detail</a>
-                                <a href="booking.html" class="dropdown-item">Car Booking</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="team.html" class="dropdown-item">The Team</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!-- Navbar End -->
+    // Nav Bar Section
+    include_once("includes/navBar.php");
+    ?>
 
 
     <!-- Search Start -->
@@ -192,9 +126,9 @@ if(isset($_GET["id"])){
     </div>
     <!-- Page Header Start -->
 
-<?php
-if(isset($_GET["id"])){
-?>
+    <?php
+        if(isset($_GET["id"])){
+    ?>
 
     <!-- Detail Start -->
     <div class="container-fluid pt-5">
@@ -215,15 +149,15 @@ if(isset($_GET["id"])){
                         </div>
                         <div class="col-md-3 col-6 mb-2">
                             <i class="fa fa-cogs text-primary mr-2"></i>
-                            <span>Automatic</span>
+                            <span><?php echo $autoStr ?></span>
                         </div>
                         <div class="col-md-3 col-6 mb-2">
                             <i class="fa fa-road text-primary mr-2"></i>
-                            <span>20km/liter</span>
+                            <span><?php echo $price ?></span>
                         </div>
                         <div class="col-md-3 col-6 mb-2">
                             <i class="fa fa-eye text-primary mr-2"></i>
-                            <span>GPS Navigation</span>
+                            <span><?php echo $properties ?></span>
                         </div>
 
                     </div>
@@ -278,97 +212,16 @@ if(isset($_GET["id"])){
     </div>
     <!-- Detail End -->
 
-<?php
+    <?php 
+    // Related Car 
+        include_once("includes/relatedCar.php");
+    ?>
+
+    <?php
     }else{
         echo "Invalid Request";
     }
     ?>
-    <!-- Related Car Start -->
-    <div class="container-fluid pb-5">
-        <div class="container pb-5">
-            <h2 class="mb-4">Related Cars</h2>
-            <div class="owl-carousel related-carousel position-relative" style="padding: 0 30px;">
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" src="img/car-rent-1.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
-                        </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" src="img/car-rent-2.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
-                        </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" src="img/car-rent-3.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
-                        </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                </div>
-                <div class="rent-item">
-                    <img class="img-fluid mb-4" src="img/car-rent-4.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
-                        </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Related Car End -->
-
 
     <!-- Vendor Start -->
     <div class="container-fluid py-5">

@@ -64,11 +64,23 @@
 				<div class="form-group mb-3 row"><label for="properties6" class="col-md-5 col-form-label">Properties</label>
 					<div class="col-md-7"><input type="text" class="form-control form-control-lg" id="properties6" name="properties"></div>
 				</div>
+				<hr class="bg-transparent border-0 py-1" />
+				<div class="form-group mb-3 row">
+					<label for="select-option1" class="col-md-5 col-form-label">Category</label>
+					<div class="col-md-7">
+                        <select class="form-select custom-select custom-select-lg" name="category" id="select-option1">
+							<option value="">Select Category</option>
+							<option value="">Category 1</option>
+							<option value="">Category 2</option>
+						</select></div>
+				</div>
+				
 				<hr class="my-4" />
 				<div>
 					<label for="image" class="col-md-5 col-form-label">Select Image</label>
 					<input type="file" id="image" name="image" accept="image/*">
 				</div>
+				
 				<hr class="my-4" />
 				<div class="form-group mb-3 row"><label for="insert10" class="col-md-5 col-form-label"></label>
 					<div class="col-md-7"><button class="btn btn-primary btn-lg" type="submit">Insert</button></div>
